@@ -1,12 +1,5 @@
-/**
- * ============================================================
- * AI Agriculture Disease Detection System - Main Server
- * ============================================================
- * Entry point for the Express.js backend application.
- * Sets up middleware, routes, database connection, and error handling.
- */
+require ('dotenv').config();
 
-require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -113,12 +106,17 @@ app.use(errorHandler);
 const startServer = async () => {
   try {
     // Connect to MongoDB
-    const conn = await mongoose.connect(process.env.MONGODB_URI, {
+     await mongoose.connect(process.env.MONGODB_URI, {
+      tls: true,
+      tlsAllowInvalidCertificates: true,
+      tlsAllowInvalidHostnames: true,
+      serverSelectionTimeoutMS: 10000,
+
       // useNewUrlParser: true,
       // useUnifiedTopology: true,
     });
 
-    logger.info(`MongoDB Connected: ${conn.connection.host}`);
+    logger.info(`MongoDB Connected: ${mongoose.connection.host}`);
 
     // Start Express server
     app.listen(PORT, () => {

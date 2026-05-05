@@ -65,7 +65,7 @@ const cropSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-cropSchema.index({ name: 1 });
+// cropSchema.index({ name: 1 });
 cropSchema.index({ category: 1 });
 
 const Crop = mongoose.model('Crop', cropSchema);
